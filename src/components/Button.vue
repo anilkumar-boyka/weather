@@ -1,31 +1,35 @@
 <template>
 
 <div>
-	<!-- City:<select>
-      <option>London</option>
-      <option>France</option>
-      <option>Moscow</option>
-
-    </select> -->
 	
+	  <h2>Type city name to check weather</h2>
+ <input v-model="input"  placeholder="select city">
 
-<button type="button">Check Weather</button>
- <input v-model="input" placeholder="select city">
-   {{input}} 
-      
+ <!-- <p>{{input}}</p> -->
  
-</div>
+ <Hello :msg="input"></Hello>
+ <!-- <p>{{message}}</p> -->
+     
+        
+  </div>
     
 
     </template>
     <script>
+    import Heading from './Heading'
 
 
    export default {
   name: 'Button',
+    components :{
+      'Hello':Heading
+
+    },
   data () {
     return {
-      input:null
+      input:null,
+      message:'hi,m anil'
+       
     }
   }
 }

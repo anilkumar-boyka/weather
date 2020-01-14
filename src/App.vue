@@ -3,7 +3,7 @@
     
     <City/><br>
     <Button/>
-    <Heading/>
+    <!-- <Heading/> -->
 
   </div>
 

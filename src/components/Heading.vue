@@ -1,27 +1,65 @@
 <template>
 	<div style="font-size:30px ;color:red">
-		Weather report <br>
-		{{message.currently.temperature +"  "+message.timezone}}
+		<p>{{answer}}</p>
+		<h2>Weather report for {{msg}}</h2><br>
+    <!-- <p>you typed {{msg}}</p> -->
+    {{msg}}
+    
+       {{message.request.query}} 
+         {{message.current.temperature}}
 
-
-	</div>
+		
+         </div>        
+        
 </template>
 
  
 <script>
 
-  import axios from "axios"
+   // import Button from './Button'
+	import axios from "axios"
 	export default {
 		name: "Heading",
-		data(){
+		 // components:{Button},
+		data(){                       
 			return {
-				message: "null"
-			}
+				message1: this.msg,
+				message:'',
+				answer:'type city name'
+
+			    }
+			
 		},
-		methods: {
+		props:['msg'],
+
+		watch:{
+      
+        	msg: function (newVal, oldVal) {
+        		this.answer = 'type here....'
+                
+        	    this.fetch_data();
+        	    this.debouncedGetAnswer();
+
+      
+      		}
+  		},
+
+  		  created: function () {
+  		  	this.debouncedGetAnswer = _.debounce(this.getAnswer, 500)
+  		  },
+   
+        methods:{
+            getAnswer: function () {
+                 this.answer = 'Thinking...'  	
+               },
+
+        
+
+
 			fetch_data(){
+				console.log(this.message1);
 				axios
-				.get('https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/753119c50b95369b12bd2bf504416c09/42.3601,-71.0589', {
+				.get('http://api.weatherstack.com/current?access_key=f40b5d81272aa2a4f415b472e6374192&query='+this.msg, {
 				})
 				.then(res => {
 					console.log(res)
@@ -32,5 +70,6 @@
 		mounted(){
 			this.fetch_data()
 		}
-	}
+    }
+	
 </script>
